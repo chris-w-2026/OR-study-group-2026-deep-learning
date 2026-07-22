@@ -2,9 +2,7 @@ import os
 import sys
 import numpy as np
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"   # Suppress logging
-os.environ["ABSL_MIN_LOG_LEVEL"] = "3"
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
-sys.stderr = open(os.devnull, "w")
 from tensorflow.keras.datasets import mnist  # type: ignore
 from tensorflow.keras.utils import to_categorical  # type: ignore
 
