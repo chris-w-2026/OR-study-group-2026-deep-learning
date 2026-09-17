@@ -1,7 +1,5 @@
 import numpy as np
 
-from aoife.neurons.single_neuron import output
-
 #we have four inputs/examples. Each of these has two values.
 X = np.array([
     [0,0],

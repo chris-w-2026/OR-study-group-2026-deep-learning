@@ -1,6 +1,5 @@
 import numpy as np
-
-from aoife.neurons.single_neuron import output
+import pandas as pd
 
 #we have four inputs/examples. Each of these has two values.
 X = np.array([
@@ -75,4 +74,13 @@ for epoch in range(10000):
         keepdims=True
     )
 
-print(np.round(output, 3))
+max_len = max(len(X), len(hidden), len(output))
+pad = lambda a: list(a) + [None] * (max_len - len(a))
+
+table = pd.DataFrame({
+    "Input": pad(X),
+    "Hidden": pad(np.round(hidden,1)),
+    "Output": pad(np.round(output,1))
+})
+
+print(table.to_string(index=False))
