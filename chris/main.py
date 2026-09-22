@@ -18,7 +18,7 @@ def load_data() -> tuple[tuple, tuple]:
     return (x_train, y_train), (x_test, y_test)
 
 def sigmoid(z):
-        return 1.0 / (1.0 + np.exp(-z))
+        return 1 / (1 + np.exp(-z))
 
 def sigmoid_prime(z):
     s = sigmoid(z)
@@ -51,17 +51,17 @@ class NeuralNetwork:
         return activations, z_values
 
     def backprop(self, x, y):
-        # C = 1/2 * sum(a^L - y) ** 2
+        # C = 1/2 * sum((a^L - y) ** 2)
         # z^l = w^l a^{l-1} + b^l
         # a^l = o(z^l)
         nabla_b = [np.zeros_like(b) for b in self.biases]
         nabla_w = [np.zeros_like(w) for w in self.weights]
         activations, zs = self.feedforward(x)
-        # delta^L = dC^L/dz^L = dC^L/da^L * da^L/dz^L = (a^L - y) * o'(z)
+        # delta^L = dC^L/dz^L = dC^L/da^L * da^L/dz^L = (a^L - y) * o'(z^l)
         delta = (activations[-1] - y) * self.output_derivative_func(zs[-1])
         # dC^L/db^L = dC^L/dz^L * dz^L/db^L = dC^L/dz^L * 1 = delta^L
         nabla_b[-1] = delta 
-        # dC^L/dw^L = dC^L/dw^L * dz^L/dw^L = dC^L/dz^L * a^{l-1} = delta^L * a^{l-1}
+        # dC^L/dw^L = dC^L/dw^L * dz^L/dw^L = dC^L/dz^L * a^{l-1} = delta^L * a^{L-1}
         nabla_w[-1] = delta @ activations[-2].T
         for l in range(2, self.num_layers):
             delta = (self.weights[-l + 1].T @ delta) * self.derivative_func(zs[-l])   
